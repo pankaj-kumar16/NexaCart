@@ -35,6 +35,7 @@
 | Source control | Git, GitHub |
 
 ## Architecture
+![NexaCart Microservices Architecture](docs/NexaCart_Architecture.svg)
 
 The frontend communicates with the API Gateway. The gateway routes requests to the backend services. Services own their respective responsibilities and use MongoDB for persistence. Internal service calls are protected using service-authentication middleware/configuration where implemented.
 

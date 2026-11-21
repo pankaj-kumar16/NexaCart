@@ -1,0 +1,29 @@
+flowchart TB
+    Customer[Customer / Browser]
+    FE[React + Vite Frontend]
+    GW[API Gateway - Express]
+    US[User Service]
+    PS[Product Service]
+    CS[Cart Service]
+    OS[Order Service]
+    NS[Notification Service]
+    DB[(MongoDB)]
+    RP[Razorpay - Test Mode]
+    SMTP[Gmail SMTP]
+
+    Customer --> FE
+    FE --> GW
+    GW --> US
+    GW --> PS
+    GW --> CS
+    GW --> OS
+    OS --> US
+    OS --> PS
+    OS --> CS
+    OS --> RP
+    OS --> NS
+    NS --> SMTP
+    US --> DB
+    PS --> DB
+    CS --> DB
+    OS --> DB
