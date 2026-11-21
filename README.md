@@ -2,7 +2,7 @@
 
 **NexaCart** is a full-stack e-commerce application built with a React frontend and a Node.js/Express microservices backend. The system is organized into independent services for users, products, carts, orders, and notifications, with an API Gateway as the frontend's entry point.
 
-> Project status: features have been implemented and tested locally by the developer. Razorpay is configured for **test mode**. Production deployment and production payment configuration are not implied.
+> Project status: features have been implemented and tested locally by the developer(Pankaj). Razorpay is configured for **test mode**. Production deployment and production payment configuration are not implied.
 
 ## Highlights
 
@@ -26,7 +26,7 @@
 |---|---|
 | Frontend | React, Vite, JavaScript, CSS |
 | Backend | Node.js, Express.js |
-| Database | MongoDB, Mongoose |
+| Database | MongoDB Atlas, Mongoose |
 | Authentication | JWT |
 | Payments | Razorpay (test mode) |
 | Email | Nodemailer / Gmail SMTP configuration |
