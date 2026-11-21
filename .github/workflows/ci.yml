@@ -1,0 +1,39 @@
+
+name: NexaCart CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    name: Build and Validate NexaCart
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Validate backend JavaScript syntax
+        run: |
+          node --check api-gateway/index.js
+          node --check user-service/index.js
+          node --check product-service/index.js
+          node --check cart-service/index.js
+          node --check order-service/index.js
+          node --check notification-service/index.js
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
