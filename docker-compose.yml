@@ -1,0 +1,82 @@
+
+services:
+
+  user-service:
+    build: ./user-service
+    container_name: nexacart-user
+    env_file:
+      - ./user-service/.env
+    ports:
+      - "5001:5001"
+    restart: unless-stopped
+
+  product-service:
+    build: ./product-service
+    container_name: nexacart-product
+    env_file:
+      - ./product-service/.env
+    ports:
+      - "5002:5002"
+    restart: unless-stopped
+
+  cart-service:
+    build: ./cart-service
+    container_name: nexacart-cart
+    env_file:
+      - ./cart-service/.env
+    environment:
+      PRODUCT_SERVICE_URL: http://product-service:5002
+    ports:
+      - "5003:5003"
+    depends_on:
+      - product-service
+    restart: unless-stopped
+
+  order-service:
+    build: ./order-service
+    container_name: nexacart-order
+    env_file:
+      - ./order-service/.env
+    environment:
+      USER_SERVICE_URL: http://user-service:5001
+      PRODUCT_SERVICE_URL: http://product-service:5002
+      CART_SERVICE_URL: http://cart-service:5003
+      NOTIFICATION_SERVICE_URL: http://notification-service:5005
+    ports:
+      - "5004:5004"
+    depends_on:
+      - user-service
+      - product-service
+      - cart-service
+      - notification-service
+    restart: unless-stopped
+
+  notification-service:
+    build: ./notification-service
+    container_name: nexacart-notification
+    env_file:
+      - ./notification-service/.env
+    ports:
+      - "5005:5005"
+    restart: unless-stopped
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: nexacart-gateway
+    env_file:
+      - ./api-gateway/.env
+    environment:
+      USER_SERVICE_URL: http://user-service:5001
+      PRODUCT_SERVICE_URL: http://product-service:5002
+      CART_SERVICE_URL: http://cart-service:5003
+      ORDER_SERVICE_URL: http://order-service:5004
+      NOTIFICATION_SERVICE_URL: http://notification-service:5005
+    ports:
+      - "5000:5000"
+    depends_on:
+      - user-service
+      - product-service
+      - cart-service
+      - order-service
+      - notification-service
+    restart: unless-stopped

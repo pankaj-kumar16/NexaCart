@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NexaCart Test Payment</title>
+</head>
+<body>
+    <h1>NexaCart</h1>
+    <h2>Razorpay Test Payment</h2>
+
+    <p>Product: iPhone 17</p>
+    <p>Amount: ₹79,999</p>
+
+    <button id="pay-button">Pay Now</button>
+
+    <pre id="result"></pre>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+        const options = {
+            key: "rzp_test_U0xUv7CRjuoRcG",
+
+            amount: 7999900,
+            currency: "INR",
+
+            name: "NexaCart",
+            description: "iPhone 17 Purchase",
+
+            order_id: "order_U1NuvCQvF8Yazj",
+
+            handler: async function (response) {
+                document.getElementById("result").textContent =
+                    JSON.stringify(response, null, 4);
+
+                console.log("Payment Response:", response);
+            },
+
+            theme: {
+                color: "#3399cc"
+            }
+        };
+
+        document.getElementById("pay-button").onclick = function () {
+            const razorpay = new Razorpay(options);
+            razorpay.open();
+        };
+    </script>
+</body>
+</html>
